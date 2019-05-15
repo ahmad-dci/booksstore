@@ -53,9 +53,9 @@ const books = [
     }];
     
 const book ={
-    title: 'FBWIIHamburg',
-    genre: 'web development',
-    author: 'ahmad',
+    title: 'FBWIIHamburg2',
+    genre: 'web development2',
+    author: 'Amir',
     read: false
   }
 function route(nav){
@@ -66,7 +66,7 @@ function route(nav){
            let client;               
            
            try {
-               client = await MongoClient.connect(url);
+               client = await MongoClient.connect(url, { useNewUrlParser: true });
                const db = client.db(dbName);
                const response = await db.collection('books').insert(book);
                res.send(response);

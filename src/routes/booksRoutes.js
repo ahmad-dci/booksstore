@@ -1,57 +1,26 @@
 const express = require('express');
-const books = [
-    {
-      title: 'War and Peace',
-      genre: 'Historical Fiction',
-      author: 'Lev Nikolayevich Tolstoy',
-      read: false
-    },
-    {
-      title: 'Les Misérables',
-      genre: 'Historical Fiction',
-      author: 'Victor Hugo',
-      read: false
-    },
-    {
-      title: 'The Time Machine',
-      genre: 'Science Fiction',
-      author: 'H. G. Wells',
-      read: false
-    },
-    {
-      title: 'A Journey into the Center of the Earth',
-      genre: 'Science Fiction',
-      author: 'Jules Verne',
-      read: false
-    },
-    {
-      title: 'The Dark World',
-      genre: 'Fantasy',
-      author: 'Henry Kuttner',
-      read: false
-    },
-    {
-      title: 'The Wind in the Willows',
-      genre: 'Fantasy',
-      author: 'Kenneth Grahame',
-      read: false
-    },
-    {
-      title: 'Life On The Mississippi',
-      genre: 'History',
-      author: 'Mark Twain',
-      read: false
-    },
-    {
-      title: 'Childhood',
-      genre: 'Biography',
-      author: 'Lev Nikolayevich Tolstoy',
-      read: false
-    }];
-    const booksRoutes = express.Router();
+const MongoClient = require('mongodb').MongoClient;
+
+ const booksRoutes = express.Router();
 function route(nav) {  
     booksRoutes.route('/').get((req, res)=>{
-      res.render('books',{title: "Books List", nav,books: books });
+      const url = 'mongodb://localhost:27017';
+        const dbName = 'libraryApp';
+        (async function mongo(){
+          let client; 
+          try {
+            client = await MongoClient.connect(url, { useNewUrlParser: true });
+            const db = client.db(dbName);
+            const col = await db.collection('books');
+            const books = await col.find().toArray();
+            console.log(books);
+            res.render('books',{title: "Books List", nav,books: books });
+          } catch (error) {
+            res.send(error.message);
+          }
+
+        }());
+      
     });
     booksRoutes.route('/:id').get((req, res)=>{
       res.render('singleBook',{ nav,book: books[req.params.id] });
