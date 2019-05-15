@@ -64,7 +64,6 @@ function route(nav){
         const dbName = 'libraryApp';
         (async function mongo() {
            let client;               
-           
            try {
                client = await MongoClient.connect(url, { useNewUrlParser: true });
                const db = client.db(dbName);
@@ -73,6 +72,7 @@ function route(nav){
                } catch (error) {
                 res.send(error.message);
                }
+               client.close();
           }());
 
     });
