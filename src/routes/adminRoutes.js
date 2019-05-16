@@ -76,7 +76,9 @@ function route(nav){
           }());
 
     });
-    
+    adminRoutes.route('/addBook').get((req, res)=>{
+       res.render('addBook', { nav, title:'Add Book' });
+    });
     return adminRoutes
 }
 

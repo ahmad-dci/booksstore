@@ -42,16 +42,21 @@ function route(nav) {
         const col = await db.collection("books");
         const singleBook =await col.findOne({_id: new ObjectID(id)});
         console.log(singleBook);
+        if(singleBook !=null){
         res.render('singleBook', {
           nav,
           book: singleBook
         });
+      }else{
+        res.send(`404 there is no book with Id ${id}`);
+      }
       } catch (error) {
         res.send(error.message);
       }
       client.close();
     }());
   });
+  
   return booksRoutes;
 }
 module.exports = route;

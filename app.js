@@ -1,6 +1,13 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+// body parser to parse the requist so we can get the posted data and other 
+// information from it 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
 const port = process.env.PORT || 3000;
 const path = require('path');
 const date = require('./src/routes/date');
