@@ -98,7 +98,7 @@ function route(nav){
       if(errorMessage!=""){
       res.send(errorMessage);
       }else{
-        const url = 'mongodb://localhost:27017';
+        const url = 'mongodb+srv://lion:jeny@cluster0-rmrmn.mongodb.net/test?retryWrites=true';
         const dbName = 'libraryApp';
         (async function mongo(){
           let client;
