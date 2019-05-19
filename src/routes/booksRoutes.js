@@ -6,7 +6,7 @@ const booksRoutes = express.Router();
 
 function route(nav) {
   booksRoutes.route('/').get((req, res) => {
-    const url = 'mongodb://localhost:27017';
+    const url = 'mongodb+srv://lion:jeny@cluster0-rmrmn.mongodb.net/test?retryWrites=true';
     const dbName = 'libraryApp';
     (async function mongo() {
       let client;
@@ -32,7 +32,7 @@ function route(nav) {
   });
   booksRoutes.route('/:id').get((req, res) => {
     const id = req.params.id;
-    const url = 'mongodb://localhost:27017';
+    const url = 'mongodb+srv://lion:jeny@cluster0-rmrmn.mongodb.net/test?retryWrites=true';
     const dbName = 'libraryApp';
     (async function mongo() {
       let client;
